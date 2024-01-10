@@ -93,7 +93,7 @@ public class OrderProcessing {
         log.info("completed order event for order id {}", event.getOrderId());
     }
 
-
+    @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     private void handle(CancelPaymentProcessedEvent event) {
 
@@ -105,8 +105,7 @@ public class OrderProcessing {
         commandGateway.sendAndWait(command);
     }
 
-        @SagaEventHandler(associationProperty = "orderId")
-    @EndSaga
+    @SagaEventHandler(associationProperty = "orderId")
     private void handle(CancelShipmentEvent event) {
 
         log.info("cancel payment event calls the cancel order command id {}", event.getOrderId());
